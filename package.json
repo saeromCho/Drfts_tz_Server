@@ -1,0 +1,22 @@
+{
+  "name": "drftsteaser_server",
+  "version": "1.0.0",
+  "description": "make drftsTeaser server with node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saeromCho/Drfts_tz_Server.git"
+  },
+  "author": "saeromCho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saeromCho/Drfts_tz_Server/issues"
+  },
+  "homepage": "https://github.com/saeromCho/Drfts_tz_Server#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
