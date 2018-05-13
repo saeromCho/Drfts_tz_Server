@@ -52,6 +52,10 @@ app.use(function(request, response) {
   console.log("output에 다 담겼나 궁금해 ::: " + output);//죄다 object Object로 출력된다.
 });
 
+app.use('/get', function(request, response) {
+  response.send(output);
+});
+
 //서버를 실행한다 , app.response가 아니라 app.listen이야...
 app.listen(port, function(request, response) {
   console.log("세션 쿠키 미들웨어가 실행되었습니다.");
