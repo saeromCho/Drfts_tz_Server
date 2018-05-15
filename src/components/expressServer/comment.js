@@ -6,17 +6,28 @@ var port = 3000;
 
 //서버를 생성한다
 var app = express();
+var commentArray = [];
 
 //미들웨어를 설정한다
 app.use(bodyParser());
-
 
 //일단 그냥 글씨가 써져있는 루트 페이지를 만든다.
 
 //라우터를 설정한다
 app.get('/', function(request, response) {
-    response.send('<h1> 루트페이지입니다. 나중엔 써서 전송한 코멘트가 보여질 거에요. </h1><br/> <a href = "/comment"> Go To Comment page!!</a>');
     console.log("루트페이지가 잘 나온다.");
+    if(commentArray.length != 0) {
+      console.log("코멘트 어레이 값들 ::: " + commentArray);
+
+      for(var i = 0; i < commentArray.length; i++) {
+        console.log("길이는 ? ::: " + commentArray.length);
+        response.send("<h1> 루트페이지입니다. 나중엔 써서 전송한 코멘트가 보여질 거에요.</h1><br/>"+ commentArray + "<br/><a href = '/comment'>" +
+                      "Go To Comment page!!</a><h2>코멘트 인덱스에 담긴 값들 출력해보고싶다</h2><br /><br/>");
+      }
+    } else {
+      response.send("<h1>없으니까 아무 것도 안뜨지</h1><br/> <a href = '/comment'> Go To Comment page!!</a>");
+      console.log("현재 어레이에 아무 것도 없으니 안뜸");
+    }
 });
 
 //comment.html파일을 읽고, error가 나면 error를 내고, 성공하면 data(html로 작성한 내용을)를 스트링으로 뿌려주는 페이지인 것 같다.
@@ -37,15 +48,16 @@ app.post('/comment', function(request, response){
   console.log(request.body);
 
   //입력한 comment값의 null여부를 확인한다.
+  //값이 null이 아니면
   if(comment != "") {
-    //response.send(comment.toString());
+    //코멘트를 array에 담아줘야 한다.
+    commentArray.push(comment);
     //리다이렉트
     response.redirect('/');
     console.log("comment ::: " + comment);
 
-  } else {//실패시, 코멘트 페이지로 리다이렉트된다.
+  } else {//값이 null이면, 코멘트 페이지로 리다이렉트된다.
     response.redirect('/comment');
-    //response.send("코멘트를 입력하세요");
     console.log("코멘트를 입력하세요");
   }
 });
