@@ -33,11 +33,13 @@ app.get('/', function(request, response) {
 //comment.html파일을 읽고, error가 나면 error를 내고, 성공하면 data(html로 작성한 내용을)를 스트링으로 뿌려주는 페이지인 것 같다.
 //이건 그냥 html 파일을 웹에 뿌려주는 기능을 가진 거 같다.
 app.get('/comment', function(request, response){
-  fs.readFile('comment.html', function(error, data) { //아.. fs는 파일을 추출해주는(읽어오는) 미들웨어인가보다. 위에서 왜 require를 해주었는지 알게 되었다. node.js의 기본 내장 모듈인 듯 하다.
+  fs.readFile('index.html', function(error, data) { //아.. fs는 파일을 추출해주는(읽어오는) 미들웨어인가보다. 위에서 왜 require를 해주었는지 알게 되었다. node.js의 기본 내장 모듈인 듯 하다.
     response.send(data.toString());
     console.log("data.toString()은 어떻게 나올까 ?? :::: " + data.toString());//내 예상대로 data.toString()은 내가 작성한 comment.html파일을 스트링으로 다 읽어오는 거였다. 헤헤
   });
 });
+
+
 
 app.post('/comment', function(request, response){
   var comment = request.param('comment');
