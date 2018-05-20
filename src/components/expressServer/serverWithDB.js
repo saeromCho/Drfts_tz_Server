@@ -93,11 +93,11 @@ app.get('/index', function(request, response) {
 //
 app.post('/savecomment', function(request, response) {
   var comment = request.param('comment');//request객체를 사용해서, 보낸 comment를 받는다.
-  dbConnection.connect(function(err) {
-    if(err) {
-      console.log(err);
-      return;
-    }
+  // dbConnection.connect(function(err) {
+  //   if(err) {
+  //     console.log(err);
+  //     return;
+  //   }
     //받은 코멘트를 insert구문을 사용해서 삽입해준다. 공부해서 적자. 다까먹었다 시발.
     //INSERT INTO Reservation(ID, Name, ReserveDate, RoomNum) VALUES(5, '이순신', '2016-02-16', 1108);
     //var sql = "insert into comment(userid, comment, day) values(0, '첫번째 코멘트', '2018-05-19')";//
@@ -110,7 +110,7 @@ app.post('/savecomment', function(request, response) {
       }
       console.log("comment 테이블 insert 완료!!!!!!!!!!");
     });
-  });
+  //});
 
   // var comment = request.param('comment');//index.html에서 comment라는 이름으로 보낸 값을 받는 변수 설정
   // commentArray.push(comment);//보낸 comment값 받아서, commentArray에 담아주기
@@ -140,7 +140,7 @@ app.get('/viewcomment', function(request, response) {
         console.log(err);
         return;
       }
-      response.send(result);
+      response.send(result);// + "<br/><a href = '/index'> Go To index page!!</a>");
       console.log("comment 테이블 select 완료!!!!!!!!!!");
     });
   //});
