@@ -1,0 +1,63 @@
+<html>
+  <head>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <input type="text" id="msg" />
+    <input type="button" id="ajax_test" value="ajax_test" />
+
+    <!--이곳에 결과 값이 붙는다.-->
+    <div id="result"></div>
+
+    <!--ajax 작동 로직-->
+    <script>
+      $('#ajax_test').click( function() {
+          $('#result').html('');
+          $.ajax({
+              url: '/board/ajax',                //주소
+              dataType: 'json',                  //데이터 형식
+              type: 'POST',                      //전송 타입
+              data: {'msg':$('#msg').val()},      //데이터를 json 형식, 객체형식으로 전송
+              success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+                  if ( result['result'] == true ) {
+                      $('#result').html(result['msg']);
+                  }
+              } //function끝
+          }); // ------      ajax 끝-----------------
+      })
+
+
+
+
+
+      document.querySelector('#ajaxsend').addEventListener("click",function(){
+        sendAjax('http://localhost:3000/savecomment');
+      });
+      
+      // sendAjax 함수는 url을 인자로 받아서 실행되는 함수다.
+      //
+      function sendAjax(url){
+        var oReq = new XMLHttpRequest();//XMLHttpRequest란? Ajax로 실행되는 HTTP통신은 XMLHttpRequest규격을 이용하고 있다. 가장 기본통신으로 많이 사용되고 있는 규격이다.
+        // Ajax(Asynchronos Javascript And XML)의 핵심인 XMLHttpRequest에 의한 송수신 흐름으로는,
+        // 1. 사용자 쪽에서는 XMLHttpRequest 오브젝트 생성. => new XMLHttpReuqest()
+        // 2. HTTP 요청 발생 => open()메소드(POST, GET, 요청할 URL, 동기/비동기 방식의 지정), send()메소드(데이터 송신)
+        // 3. 서버 쪽에서는 
+      
+        oReq.open('POST', url);
+        oReq.setRequestHeader('Content-Type', "application/json")                                        
+        oReq.send();
+      
+        oReq.addEventListener('load', function(){
+          var result = oReq.responseText;
+          console.log(oReq.responseText)
+          console.log("왜 아무것도 안찍히냐");
+          document.querySelector("#body").appendChild.querySelector('#result').innerHTML = result
+        });
+      };
+    </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </body>
+</html>
+
+

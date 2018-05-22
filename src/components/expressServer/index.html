@@ -1,23 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>Node.js with Input COMMENT PAGE</title>
   </head>
   
-  <body>
+  <body id="body">
     <h1>Drfts_ Write COMMENT PAGE</h1>
     <hr/>
-    <form method="post" action="/savecomment">
+    <!-- <form method="post" action="/savecomment">
       <table>
         <tr>
           <td><label>Comment </label></td>
           <td><input type="text" name="comment"/></td>
         </tr>
       </table>
-      <input type="submit" name="subimt" />
-    </form>
-    <div>
+      <input type="submit" id="ajaxsend" name="submit" />  -->
       
-    </div>
+      <!--ajax요청을 할 버튼등록--> 
+      <!-- <input type="submit" name="subimt" /> -->
+    <!-- </form> -->
+
+    <input type="text" id="msg" />
+    <input type="button" id="ajax_test" value="ajax_test" />
+
+    <!--이곳에 결과 값이 붙는다.-->
+    <div id="result"></div> <!--템플릿이 들어갈 result div태그-->
+    
+
+          
+
+    <!-- <table width="100%" border="1">
+      <tr>
+          <th>PostId</th>
+          <th>Comment</th>
+          <th>Day</th>
+      </tr>
+      <% for (var temp  in data){%>
+      <tr>
+          <td><%=data[temp].uerIdtitle %></td>
+          <td><%=data[temp].comment%></td>
+          <td><%=data[temp].day%></td>
+      </tr>
+      <%} %>
+      </table> -->
   </body>
+
+  <script>
+      $('#ajax_test').click( function() {
+        $('#result').html('');
+        $.ajax({
+            url: '/board/ajax',                //주소
+            dataType: 'json',                  //데이터 형식
+            type: 'POST',                      //전송 타입
+            data: {'msg':$('#msg').val()},      //데이터를 json 형식, 객체형식으로 전송
+            success: function(result) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+                if ( result['result'] == true ) {
+                    $('#result').html(result['msg']);
+                }
+            } //function끝
+        }); // ------      ajax 끝-----------------
+    })
+  </script>
 </html>
