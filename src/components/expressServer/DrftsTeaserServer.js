@@ -7,8 +7,6 @@ var port = 3000;
 var app = express();
 
 app.use(bodyParser());
-app.set('view engine', 'ejs');// view engine으로 ejs를 사용하겠다는 의미.
-app.set('views', './views');
 app.use(express.static('expressServer'));
 
 
@@ -23,6 +21,7 @@ var dbConnection = mysql.createConnection({
 
 app.get('/index', function(request, response) {
   response.sendFile(__dirname + '/index.html');
+  //fs.readFile(__dirname + '/index.html');
 
   var sql = "SELECT * FROM DrftsTeaser";
     dbConnection.query(sql, function(err, result) {
@@ -30,19 +29,40 @@ app.get('/index', function(request, response) {
         console.log(err);
         return;
       }
+      //response.send(result.toString());
       //response.send(result);
       //response.render('template',{txt1:result});
       console.log("index페이지에서 comment 테이블 select 완료");
+      // var data = "<html><head><title>Node.js with Input COMMENT PAGE</title></head><body id='body'>";
+      //     data += "<h1>Drfts_ Write COMMENT PAGE</h1>";
+      //     data += "<input type='text' id='comment' name='comment'/>";
+      //     data += "<input type='button' class='ajaxsend' value='ajax_test' />";
+      //     data += "<hr/><div class='result'>";
+      for(var i in result) {
+        console.log(result[i]);
+        
+        //data += "<div>" + result[i] + "</div>";
+      }
+      // data += "</div>";
+      // data += "</body></html>";
+      //response.send(result);
+      // response.send(data);
     });
   // fs.readFile('index.html', function(error, data) {
-  //   response.send(data.toString());
+    
   // });
 });
 
 //서버에서 app.post()는 클라이언트 단에서 post로 보낸 값을 처리해주기 위함이다.
-app.post('/savecomment', function(request, response) {
-  var comment = request.body.comment;//request.param('comment');//request객체를 사용해서, 보낸 comment를 받는다.
-  console.log("코멘트내용 ::: " + comment);
+app.post('/index', function(request, response) {
+  // console.log(request.body.comment);
+  // console.log(request.param('comment'));
+  var responseData = {'result' : 'ok', 'comment' : request.body.comment};
+  // console.log(responseData);
+  response.json(responseData);
+
+  var comment = request.param('comment');// request.body.comment;request객체를 사용해서, 보낸 comment를 받는다.
+  // console.log("코멘트내용 ::: " + comment);
   var date = new Date();
   var year = date.getFullYear();
   var month = date.getMonth();
@@ -75,7 +95,7 @@ app.post('/savecomment', function(request, response) {
     // });
     
   //response.redirect('/viewcomment');
-  response.redirect('/index');
+  //response.redirect('/index');
 });
 
 // app.get('/viewcomment', function(request, response) {
