@@ -21,7 +21,7 @@
   <script>
     document.querySelector('.ajaxsend').addEventListener('click', function() {
       var comment = $('#comment').val();
-      sendAjax('http://localhost:3000/index', comment);
+      sendAjax('http://localhost:4000/index', comment);
     });
  
     function sendAjax(url, data) {

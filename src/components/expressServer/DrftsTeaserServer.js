@@ -2,7 +2,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var express = require('express');
-var port = 3000;
+var port = 4000;
 
 var app = express();
 
@@ -11,8 +11,8 @@ app.use(express.static('expressServer'));
 
 var dbConnection = mysql.createConnection({
   host : 'localhost',
-  user : 'root',
-  password : 'tofha0605',
+  user : 'Drfts',
+  password : 'drfts1234',
   database : 'drfts_tz'
 });
 
