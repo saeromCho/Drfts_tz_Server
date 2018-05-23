@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <title>Node.js with Input COMMENT PAGE</title>
+  </head>
+  
+  <body id="body">
+    <h1>Drfts_ Write COMMENT PAGE</h1>
+    <hr/>
+    <!-- <form method="post" action="/savecomment">
+      <table>
+        <tr>
+          <td><label>Comment </label></td>
+          <td><input type="text" name="comment"/></td>
+        </tr>
+      </table>
+      <input type="submit" id="ajaxsend" name="submit" />  -->
+      
+      <!--ajax요청을 할 버튼등록--> 
+      <!-- <input type="submit" name="subimt" /> -->
+    <!-- </form> -->
+
+    <input type="text" id="comment" name="comment"/>
+    <input type="button" class="ajaxsend" value="SEND" />
+
+    <!--이곳에 결과 값이 붙는다.-->
+    <div class="result"></div> <!--템플릿이 들어갈 result div태그-->
+  </body>
+
+
+  <script>
+    document.querySelector('.ajaxsend').addEventListener('click', function() {
+      var comment = $('#comment').val();
+      sendAjax('http://localhost:3000/index', comment);
+    });
+ 
+    function sendAjax(url, data) {
+      var data = {'comment': data};
+      data = JSON.stringify(data);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(data);  
+
+
+
+      xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        alert(result.comment);
+        alert(result.day);
+        if(result.result !== 'ok') {
+          alert(result.comment);
+          return;
+        }
+        document.querySelector('.result').innerHTML += result.day + "_  ";
+        document.querySelector('.result').innerHTML += result.comment + "<br />";
+      });
+    }
+
+    
+
+   
+    
+  </script>
+
+  <!-- <script>
+      $('#ajax_test').on('click', function() {
+        alert("성공~~~");
+        var comment = $('#comment').val();
+        alert("코멘트내용 ::: " + comment);
+        $('#result').html('');
+        alert("$('#result').html('');  ::: ");
+        alert($('#result').html(''));
+        $.ajax({
+            url: '/savecomment',                //주소
+            dataType: 'json',                  //데이터 형식
+            type: 'POST',                      //전송 타입
+            data: {comment: comment},      //데이터를 json 형식, 객체형식으로 전송
+            success: function(data) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
+              alert("bbb");
+              $('#result').html(data);
+              alert("????~~~");
+            }, //function끝
+            error: function(err) {
+              alert("에러야? ::: ");
+              alert(err);
+            },
+            complete: function(data) {
+              alert("컴플릿 후 데이터 ::: ");
+              alert(data);
+            }
+        }); // ------      ajax 끝-----------------
+        alert("여기는 오지?");
+    });
+  </script> -->
+</html>
