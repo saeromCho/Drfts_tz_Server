@@ -24,7 +24,7 @@
     <!-- </form> -->
 
     <input type="text" id="comment" name="comment"/>
-    <input type="button" class="ajaxsend" value="ajax_test" />
+    <input type="button" class="ajaxsend" value="SEND" />
 
     <!--이곳에 결과 값이 붙는다.-->
     <div class="result"></div> <!--템플릿이 들어갈 result div태그-->
@@ -50,11 +50,14 @@
 
       xhr.addEventListener('load', function() {
         var result = JSON.parse(xhr.responseText);
+        alert(result.comment);
+        alert(result.day);
         if(result.result !== 'ok') {
           alert(result.comment);
-          //return;
+          return;
         }
-        document.querySelector('.result').innerHTML += result.comment;
+        document.querySelector('.result').innerHTML += result.day + "_  ";
+        document.querySelector('.result').innerHTML += result.comment + "<br />";
       });
     }
 

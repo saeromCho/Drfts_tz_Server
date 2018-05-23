@@ -57,9 +57,9 @@ app.get('/index', function(request, response) {
 app.post('/index', function(request, response) {
   // console.log(request.body.comment);
   // console.log(request.param('comment'));
-  var responseData = {'result' : 'ok', 'comment' : request.body.comment};
+  // var responseData = {'result' : 'ok', 'comment' : request.body.comment};
   // console.log(responseData);
-  response.json(responseData);
+  // response.json(responseData);
 
   var comment = request.param('comment');// request.body.comment;request객체를 사용해서, 보낸 comment를 받는다.
   // console.log("코멘트내용 ::: " + comment);
@@ -74,15 +74,28 @@ app.post('/index', function(request, response) {
     month = month;
   }
   date = year.toString() + month.toString() + day.toString();
-    var sql = "INSERT INTO DrftsTeaser(comment, day) VALUES(?, ?);";
-    dbConnection.query(sql, [comment, date], function(err, result) {
-      if(err) {//20180518이 날짜 형식임
-        console.log(err);
-        return;
-      }
-      console.log("comment 테이블 insert 완료");
-    });
+  // var tableCounts = "SELECT COUNT(*) AS userIdCount FROM DrftsTeaser";
+  // dbConnection.query(tableCounts, function(err, result) {
+  //   if(err) {
+  //     console.log(err);
+  //     return;
+  //   }
+  // console.log(result[0].userIdCount);
+  // });
+  var sql = "INSERT INTO DrftsTeaser(comment, day) VALUES(?, ?);";
+  dbConnection.query(sql, [comment, date], function(err, result) {
+    if(err) {//20180518이 날짜 형식임
+      console.log(err);
+      return;
+    }
+    var responseData = {'result' : 'ok', 'comment' : request.body.comment, 'day' : date};
+    console.log("comment 테이블 insert 완료");
+    console.log(responseData);
+    response.json(responseData);
+  });
 
+  //var responseData = {'result' : 'ok', 'userId' : result[0].userIdCount+1, 'comment' : request.body.comment, 'day' : date};
+ 
     // var sql = "SELECT * FROM DrftsTeaser";
     // dbConnection.query(sql, function(err, result) {
     //   if(err) {
