@@ -10,19 +10,6 @@
   <body id="body">
     <h1>Drfts_ Write COMMENT PAGE</h1>
     <hr/>
-    <!-- <form method="post" action="/savecomment">
-      <table>
-        <tr>
-          <td><label>Comment </label></td>
-          <td><input type="text" name="comment"/></td>
-        </tr>
-      </table>
-      <input type="submit" id="ajaxsend" name="submit" />  -->
-      
-      <!--ajax요청을 할 버튼등록--> 
-      <!-- <input type="submit" name="subimt" /> -->
-    <!-- </form> -->
-
     <input type="text" id="comment" name="comment"/>
     <input type="button" class="ajaxsend" value="SEND" />
 
@@ -46,8 +33,6 @@
       xhr.setRequestHeader('Content-type', 'application/json');
       xhr.send(data);  
 
-
-
       xhr.addEventListener('load', function() {
         var result = JSON.parse(xhr.responseText);
         alert(result.comment);
@@ -60,41 +45,5 @@
         document.querySelector('.result').innerHTML += result.comment + "<br />";
       });
     }
-
-    
-
-   
-    
   </script>
-
-  <!-- <script>
-      $('#ajax_test').on('click', function() {
-        alert("성공~~~");
-        var comment = $('#comment').val();
-        alert("코멘트내용 ::: " + comment);
-        $('#result').html('');
-        alert("$('#result').html('');  ::: ");
-        alert($('#result').html(''));
-        $.ajax({
-            url: '/savecomment',                //주소
-            dataType: 'json',                  //데이터 형식
-            type: 'POST',                      //전송 타입
-            data: {comment: comment},      //데이터를 json 형식, 객체형식으로 전송
-            success: function(data) {          //성공했을 때 함수 인자 값으로 결과 값 나옴
-              alert("bbb");
-              $('#result').html(data);
-              alert("????~~~");
-            }, //function끝
-            error: function(err) {
-              alert("에러야? ::: ");
-              alert(err);
-            },
-            complete: function(data) {
-              alert("컴플릿 후 데이터 ::: ");
-              alert(data);
-            }
-        }); // ------      ajax 끝-----------------
-        alert("여기는 오지?");
-    });
-  </script> -->
 </html>
