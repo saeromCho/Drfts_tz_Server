@@ -34,14 +34,12 @@
   <script>
     document.querySelector('.ajaxsend').addEventListener('click', function() {
       var comment = $('#comment').val();
-      alert(comment);
       sendAjax('http://localhost:3000/index', comment);
     });
  
     function sendAjax(url, data) {
       var data = {'comment': data};
       data = JSON.stringify(data);
-      alert(data);
 
       var xhr = new XMLHttpRequest();
       xhr.open('POST', url);
@@ -52,11 +50,9 @@
 
       xhr.addEventListener('load', function() {
         var result = JSON.parse(xhr.responseText);
-        
         if(result.result !== 'ok') {
-          alert(result.result);
           alert(result.comment);
-          return;
+          //return;
         }
         document.querySelector('.result').innerHTML += result.comment;
       });

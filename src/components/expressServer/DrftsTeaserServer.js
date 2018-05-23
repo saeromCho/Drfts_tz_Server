@@ -20,7 +20,7 @@ var dbConnection = mysql.createConnection({
 
 
 app.get('/index', function(request, response) {
-  response.sendFile(__dirname + '/index.html');
+  
   //fs.readFile(__dirname + '/index.html');
 
   var sql = "SELECT * FROM DrftsTeaser";
@@ -49,7 +49,7 @@ app.get('/index', function(request, response) {
       // response.send(data);
     });
   // fs.readFile('index.html', function(error, data) {
-    
+    response.sendFile(__dirname + '/index.html');
   // });
 });
 
