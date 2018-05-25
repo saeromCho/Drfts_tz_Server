@@ -86,14 +86,20 @@
           //alert(item[0]);
           //alert(item.userId);
           var output = '';
+          //document.querySelector('#output').append("<tr><td>" + item.userId + "</td><td>" + item.day + "</td><td>" + item.comment + "</td><tr>");
+          //document.querySelector('#output').html("<td>" + item.userId + "</td>");
+          //document.querySelector('#output').html("<td>" + item.day + "</td>");
+          //document.querySelector('#output').html("<td>" + item.comment + "</td>");
+          //document.querySelector('#output').html("<tr>");
           output += "<tr>";
-          output += "  <td>" + item.userId + "</td>";
-          output += "  <td>" + item.day + "</td>";
-          output += "  <td>" + item.comment + "</td>";
+          //output += "<td>" + item.userId + "</td>";
+          output += "<td>" + item.day + "</td>";
+          output += "<td>" + item.comment + "</td>";
           output += "</tr>";
-          console.log("ㅣㅆ발");
+          //output += item.day + "__ ";
+          //output += item.comment + "   ";
           //alert(output);
-          document.querySelector('#output').append(output);
+          $('#output').append(output);
           //document.querySelector('#output').innerHTML = output;
         });
       });
@@ -117,14 +123,22 @@
 
       xhr.addEventListener('load', function() {
         var result = JSON.parse(xhr.responseText);
-        alert(result.comment);
-        alert(result.day);
         if(result.result !== 'ok') {
           alert(result.comment);
           return;
         }
-        document.querySelector('#output').innerHTML += result.day + "_  ";
-        document.querySelector('#output').innerHTML += result.comment + "<br />";
+        var output = '';
+        output += "<tr>";
+        //output += "<td>" + result.userId + "</td>";
+        output += "<td>" + result.day + "</td>";
+        output += "<td>" + result.comment + "</td>";
+        output += "</tr>";
+        $('#output').append(output);
+        //document.querySelector('#output').innerHTML += result.userId;
+        //document.querySelector('#output').innerHTML += result.day + "_  ";
+        //document.querySelector('#output').innerHTML += result.comment + "<br />";
+        //document.querySelector('#output').innerHTML += result.day + "_  ";
+        //document.querySelector('#output').innerHTML += result.comment + "<br />";
       });
     }
   </script>

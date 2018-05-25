@@ -126,6 +126,8 @@ app.post('/index', function (request, response) {
       console.log(err);
       return;
     }
+
+    //userId값은 테이블 총 rows를 뽑아서 하면 되는데, 일단 지금은 필요치 않으니 안뽑을꺼야.
     var responseData = { 'result': 'ok', 'comment': request.body.comment, 'day': date };
     console.log("comment 테이블 insert 완료");
     console.log(responseData);
