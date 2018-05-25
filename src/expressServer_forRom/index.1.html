@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <title>Node.js with Input COMMENT PAGE</title>
+  </head>
+  
+  <body id="body">
+    <h1>Drfts_ Write COMMENT PAGE</h1>
+    <hr/>
+    <input type="text" id="comment" name="comment"/>
+    <input type="button" class="ajaxsend" value="SEND" />
+
+    <!--이곳에 결과 값이 붙는다.-->
+    <table id="output" border="1">
+    </table>
+    <button id="getComment">코멘트가져오기</button>
+  </body>
+
+
+  <script>
+  $(document).ready(function(){
+  //처음엔 document.ready가 안먹어서 버튼으로 해보려고 버튼을 만들어줬고, 버튼 클릭시 붙게끔 함
+  //document.querySelector('#getComment').addEventListener('click', function() {
+    selectData();
+    //getData('http://0.0.0.0:4000/index');
+  });
+
+  // 한번 시도해 본 메소드
+  /*function getData(url) {
+    alert("들어오긴함");
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.response(data);  
+    alert("데이터");
+    alert(data);
+    xhr.addEventListener('load', function() {
+      var result = JSON.parse(xhr.responseText);
+      alert(result.comment);
+      alert(result.day);
+      if(result.result !== 'ok') {
+        alert(result.comment);
+        return;
+      }
+      document.querySelector('#output').innerHTML += result.day + "_  ";
+      document.querySelector('#output').innerHTML += result.comment + "<br />";
+    });
+  };*/
+
+
+  function selectData(){
+    //이 ajax는 왜 실행이 안되는지 잘 모르겠다....
+    /*$.ajax({
+      url: "comment.html",
+      cache: false
+    })
+      .done(function(data, textStatus, jqXHR) {
+        $("#getComment").html(data);
+        alert("성공");
+      })
+      .fail(function(jqXHR, textStatus, errorThrown){
+        console.log("fail: ", jqXHR);
+      })
+      .always(function(data, textStatus, jqXHR){
+        console.log("always: ", data);
+      });*/
+    //#output 내부의 내용물을 제거합니다. output은 html body에 있다
+    //document.querySelector('#output').empty();
+
+    //Ajax를 수행합니다.
+    /*$.ajax({
+      type: 'GET',
+      url: 'http://0.0.0.0:4000/index',
+      data: data,
+      success: function(data) {
+        alert(data);
+      }
+    });*/
+    
+    $.getJSON('http://0.0.0.0:4000/index/comment', function(data){
+      //alert(data[0]);// => 왜 < 가 뽑히지???? 뭐야... => //$.get()을 써서 가져온 data는 index.html의 전체 내용이었다.. index.html의 html내용이었다...ㅅ..
+        $(data).each(function(index, item){
+          //alert(data);
+          //alert(item[0].day); //이건 왜 안먹히지? jQuery에서는 인덱스 뽑는게 다른 방법이 있는건가?
+          //alert(item.userId);
+          var output = '';
+          // 이것도 되고 
+          //$('#output').append("<tr><td>" + item.userId + "</td><td>" + item.day + "</td><td>" + item.comment + "</td><tr>");
+          
+          //이것도 document.querySelector를 $로 바꾸면 됨
+          //document.querySelector('#output').html("<td>" + item.userId + "</td>");
+          //document.querySelector('#output').html("<td>" + item.day + "</td>");
+          //document.querySelector('#output').html("<td>" + item.comment + "</td>");
+          //document.querySelector('#output').html("<tr>");
+
+          //이것도 됨
+          output += "<tr>";
+          //output += "<td>" + item.userId + "</td>";
+          output += "<td>" + item.day + "</td>";
+          output += "<td>" + item.comment + "</td>";
+          output += "</tr>";
+          $('#output').append(output);
+          
+          //이건 왜 안되냐
+          //$('#output').innerHTML = output;
+        });
+      });
+  };
+
+
+    document.querySelector('.ajaxsend').addEventListener('click', function() {
+      var comment = $('#comment').val();
+      sendAjax('http://0.0.0.0:4000/index', comment);
+      //$('#comment').val() = ""; 왜 값 초기화가 안되냐
+    });
+    function sendAjax(url, data) {
+      var data = {'comment': data};
+      data = JSON.stringify(data);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.send(data);  
+
+      xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        if(result.result !== 'ok') {
+          return;
+        }
+        var output = '';
+        output += "<tr>";
+        //output += "<td>" + result.userId + "</td>";
+        output += "<td>" + result.day + "</td>";
+        output += "<td>" + result.comment + "</td>";
+        output += "</tr>";
+        $('#output').append(output);
+        //document.querySelector('#output').innerHTML += result.userId;
+        //document.querySelector('#output').innerHTML += result.day + "_  ";
+        //document.querySelector('#output').innerHTML += result.comment + "<br />";
+        //document.querySelector('#output').innerHTML += result.day + "_  ";
+        //document.querySelector('#output').innerHTML += result.comment + "<br />";
+        
+      });
+    }
+  </script>
+</html>
