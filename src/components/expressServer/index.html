@@ -14,16 +14,97 @@
     <input type="button" class="ajaxsend" value="SEND" />
 
     <!--이곳에 결과 값이 붙는다.-->
-    <div class="result"></div> <!--템플릿이 들어갈 result div태그-->
+    <!-- <div class="result"></div> 템플릿이 들어갈 result div태그 -->
+    <table id="output" border="1">
+    </table>
+    <button id="getComment">코멘트가져오기</button>
   </body>
 
 
   <script>
+  document.querySelector('#getComment').addEventListener('click', function() {
+    selectData();
+    //getData('http://0.0.0.0:4000/index');
+  });
+  /*function getData(url) {
+    alert("들어오긴함");
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.response(data);  
+    alert("데이터");
+    alert(data);
+    xhr.addEventListener('load', function() {
+      var result = JSON.parse(xhr.responseText);
+      alert(result.comment);
+      alert(result.day);
+      if(result.result !== 'ok') {
+        alert(result.comment);
+        return;
+      }
+      document.querySelector('#output').innerHTML += result.day + "_  ";
+      document.querySelector('#output').innerHTML += result.comment + "<br />";
+    });
+
+  };*/
+
+
+  function selectData(){
+    /*$.ajax({
+      url: "comment.html",
+      cache: false
+    })
+      .done(function(data, textStatus, jqXHR) {
+        $("#getComment").html(data);
+        alert("성공");
+      })
+      .fail(function(jqXHR, textStatus, errorThrown){
+        console.log("fail: ", jqXHR);
+      })
+      .always(function(data, textStatus, jqXHR){
+        console.log("always: ", data);
+      });*/
+    alert("버큰클릭됨");
+    //#output 내부의 내용물을 제거합니다. output은 html body에 있다
+    //document.querySelector('#output').empty();
+    //get을 써서 가져온 data는 index.html의 전체 내용이었다.. index.html의 html내용...시발
+    //Ajax를 수행합니다.
+    /*$.ajax({
+      type: 'GET',
+      url: 'http://0.0.0.0:4000/index',
+      data: data,
+      success: function(data) {
+        alert(data);
+      }
+    });*/
+    $.getJSON('http://0.0.0.0:4000/index/comment', function(data){
+      alert(data[0]);// => 왜 < 가 뽑히지???? 뭐야...
+        $(data).each(function(index, item){
+          console.log("데이터");
+          alert(data);
+          //alert(item[0]);
+          //alert(item.userId);
+          var output = '';
+          output += "<tr>";
+          output += "  <td>" + item.userId + "</td>";
+          output += "  <td>" + item.day + "</td>";
+          output += "  <td>" + item.comment + "</td>";
+          output += "</tr>";
+          console.log("ㅣㅆ발");
+          //alert(output);
+          document.querySelector('#output').append(output);
+          //document.querySelector('#output').innerHTML = output;
+        });
+      });
+    alert("인정");
+  };
+
+
     document.querySelector('.ajaxsend').addEventListener('click', function() {
       var comment = $('#comment').val();
-      sendAjax('http://localhost:4000/index', comment);
+      sendAjax('http://0.0.0.0:4000/index', comment);
     });
- 
+    alert(document.querySelector('#body').html());
     function sendAjax(url, data) {
       var data = {'comment': data};
       data = JSON.stringify(data);
@@ -41,8 +122,8 @@
           alert(result.comment);
           return;
         }
-        document.querySelector('.result').innerHTML += result.day + "_  ";
-        document.querySelector('.result').innerHTML += result.comment + "<br />";
+        document.querySelector('#output').innerHTML += result.day + "_  ";
+        document.querySelector('#output').innerHTML += result.comment + "<br />";
       });
     }
   </script>

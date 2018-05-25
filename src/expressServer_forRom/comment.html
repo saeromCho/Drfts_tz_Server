@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://poiemaweb.com/assets/css/ajax.css">
+  </head>
+  <body>
+    <div id="output">룰루랄라</div>
+
+    <!-- <script>
+      // XMLHttpRequest 객체의 생성
+      var req = new XMLHttpRequest();
+      // 비동기 방식으로 Request를 오픈한다
+      req.open('GET', 'data/data.html', true);
+      // Request를 전송한다
+      req.send();
+
+      // Event Handler
+      req.onreadystatechange = function () {
+        // 서버 응답 완료 && 정상 응답
+        if (req.readyState === XMLHttpRequest.DONE) {
+          if (req.status == 200) {
+            console.log(req.responseText);
+
+            document.getElementById('content').innerHTML = req.responseText;
+          
+            // document.getElementById('content').insertAdjacentHTML('beforeend', req.responseText);
+          } else {
+            console.log('[' + req.status + ']: ' + req.statusText);
+          }
+        }
+      };
+    </script> -->
+  </body>
+</html>
